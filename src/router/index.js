@@ -38,106 +38,149 @@ export const constantRouterMap = [
   },
 
   {
-    path: '/example',
+    path: '/member',
     component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'example' },
+    redirect: '/member/student',
+    name: 'member',
+    meta: { title: '人员管理', icon: 'example' },
     children: [
       {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
-      }
-    ]
-  },
-
-  {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
-  },
-
-  {
-    path: '/nested',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
-    meta: {
-      title: 'Nested',
-      icon: 'nested'
-    },
-    children: [
-      {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: 'Menu1' },
+        path: 'student',
+        name: 'student',
+        component: () => import('@/views/member/student/index'),
+        meta: { title: '学生管理', icon: 'table' },
         children: [
           {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
-          },
+            path: 'list',
+            name: 'list',
+            component: () => import('@/views/member/student/list'),
+            meta: { title: '学生列表', icon: 'table' }
+          },{
+            path: 'add',
+            name: 'add',
+            component: () => import('@/views/member/student/add'),
+            meta: { title: '添加学生', icon: 'tree' }
+          }
+        ]
+      },{
+        path: 'teacher',
+        name: 'teacher',
+        component: () => import('@/views/member/teacher/index'),
+        meta: { title: '教师管理', icon: 'tree' },
+        children: [
           {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
-              }
-            ]
-          },
+            path: 'list',
+            name: 'list',
+            component: () => import('@/views/member/teacher/list'),
+            meta: { title: '教师列表', icon: 'table' }
+          },{
+            path: 'add',
+            name: 'add',
+            component: () => import('@/views/member/teacher/add'),
+            meta: { title: '添加教师', icon: 'tree' }
+          }
+        ]
+      },{
+        path: 'admin',
+        name: 'admin',
+        meta: { title: '管理员', icon: 'tree' },
+        children: [
           {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
+            path: 'list',
+            name: 'list',
+            component: () => import('@/views/member/admin/list'),
+            meta: { title: '管理员列表', icon: 'table' }
+          },{
+            path: 'add',
+            name: 'add',
+            component: () => import('@/views/member/admin/add'),
+            meta: { title: '添加管理员', icon: 'tree' }
           }
         ]
       },
+    ]
+  },
+
+  {
+    path: '/dormitory',
+    component: Layout,
+    name: 'dormitory',
+    meta: { title: '宿舍管理', icon: 'form' },
+    children: [
       {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        meta: { title: 'menu2' }
+        path: 'list',
+        name: 'list',
+        component: () => import('@/views/dormitory/list'),
+        meta: { title: '宿舍列表', icon: 'table' }
+      },{
+        path: 'add',
+        name: 'add',
+        component: () => import('@/views/dormitory/add'),
+        meta: { title: '添加宿舍', icon: 'tree' }
+      }
+    ]
+  },{
+    path: '/education',
+    component: Layout,
+    name: 'education',
+    meta: { title: '教学管理', icon: 'form' },
+    children: [
+      {
+        path: 'specialty',
+        name: 'specialty',
+        meta: { title: '系别列表', icon: 'table' },
+        children: [
+          {
+            path: 'list',
+            name: 'list',
+            component: () => import('@/views/education/specialty/list'),
+            meta: { title: '系别列表', icon: 'table' }
+          },{
+            path: 'add',
+            name: 'add',
+            component: () => import('@/views/education/specialty/add'),
+            meta: { title: '添加系别', icon: 'tree' }
+          }
+        ]
+      },{
+        path: 'class',
+        name: 'class',
+        meta: { title: '班级管理', icon: 'tree' },
+        children: [
+          {
+            path: 'list',
+            name: 'list',
+            component: () => import('@/views/education/class/list'),
+            meta: { title: '班级列表', icon: 'table' }
+          },{
+            path: 'add',
+            name: 'add',
+            component: () => import('@/views/education/class/add'),
+            meta: { title: '添加班级', icon: 'tree' }
+          }
+        ]
       }
     ]
   },
 
   {
-    path: 'external-link',
+    path: '/article',
     component: Layout,
+    redirect: '/article/post',
+    name: 'article',
+    meta: { title: '文章管理', icon: 'example' },
     children: [
       {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
-      }
+        path: 'list',
+        name: 'list',
+        component: () => import('@/views/article/list'),
+        meta: { title: '文章列表', icon: 'table' }
+      },{
+        path: 'add',
+        name: 'add',
+        component: () => import('@/views/article/add'),
+        meta: { title: '添加文章', icon: 'form' }
+      },
     ]
   },
 
