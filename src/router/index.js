@@ -40,23 +40,21 @@ export const constantRouterMap = [
   {
     path: '/member',
     component: Layout,
-    redirect: '/member/student',
     name: 'member',
     meta: { title: '人员管理', icon: 'example' },
     children: [
       {
-        path: 'student',
+        path: '/member/student',
         name: 'student',
-        component: () => import('@/views/member/student/index'),
         meta: { title: '学生管理', icon: 'table' },
         children: [
           {
-            path: 'list',
+            path: '/member/student/list',
             name: 'list',
             component: () => import('@/views/member/student/list'),
             meta: { title: '学生列表', icon: 'table' }
           },{
-            path: 'add',
+            path: '/member/student/add',
             name: 'add',
             component: () => import('@/views/member/student/add'),
             meta: { title: '添加学生', icon: 'tree' }
