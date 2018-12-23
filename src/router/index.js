@@ -44,17 +44,17 @@ export const constantRouterMap = [
     meta: { title: '人员管理', icon: 'example' },
     children: [
       {
-        path: '/member/student',
+        path: 'student',
         name: 'student',
         meta: { title: '学生管理', icon: 'table' },
         children: [
           {
-            path: '/member/student/list',
+            path: 'list',
             name: 'list',
             component: () => import('@/views/member/student/list'),
             meta: { title: '学生列表', icon: 'table' }
           },{
-            path: '/member/student/add',
+            path: 'add',
             name: 'add',
             component: () => import('@/views/member/student/add'),
             meta: { title: '添加学生', icon: 'tree' }
@@ -164,7 +164,6 @@ export const constantRouterMap = [
   {
     path: '/article',
     component: Layout,
-    redirect: '/article/post',
     name: 'article',
     meta: { title: '文章管理', icon: 'example' },
     children: [
