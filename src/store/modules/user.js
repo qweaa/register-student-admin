@@ -33,8 +33,8 @@ const user = {
           const data = response.data
           // setToken(data.token)
           // commit('SET_TOKEN', data.token)
-          setToken('admin')
-          commit('SET_TOKEN', 'admin')
+          setToken(username)
+          commit('SET_TOKEN', username)
           resolve()
         }).catch(error => {
           reject(error)

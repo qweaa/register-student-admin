@@ -46,16 +46,17 @@ export const constantRouterMap = [
       {
         path: 'student',
         name: 'student',
+        component: () => import('@/views/member/student/index'),
         meta: { title: '学生管理', icon: 'table' },
         children: [
           {
             path: 'list',
-            name: 'list',
+            name: 'studentlist',
             component: () => import('@/views/member/student/list'),
             meta: { title: '学生列表', icon: 'table' }
           },{
             path: 'add',
-            name: 'add',
+            name: 'studentadd',
             component: () => import('@/views/member/student/add'),
             meta: { title: '添加学生', icon: 'tree' }
           }
@@ -68,12 +69,12 @@ export const constantRouterMap = [
         children: [
           {
             path: 'list',
-            name: 'list',
+            name: 'teacherlist',
             component: () => import('@/views/member/teacher/list'),
             meta: { title: '教师列表', icon: 'table' }
           },{
             path: 'add',
-            name: 'add',
+            name: 'teacheradd',
             component: () => import('@/views/member/teacher/add'),
             meta: { title: '添加教师', icon: 'tree' }
           }
@@ -85,12 +86,12 @@ export const constantRouterMap = [
         children: [
           {
             path: 'list',
-            name: 'list',
+            name: 'adminlist',
             component: () => import('@/views/member/admin/list'),
             meta: { title: '管理员列表', icon: 'table' }
           },{
             path: 'add',
-            name: 'add',
+            name: 'adminadd',
             component: () => import('@/views/member/admin/add'),
             meta: { title: '添加管理员', icon: 'tree' }
           }
@@ -107,12 +108,12 @@ export const constantRouterMap = [
     children: [
       {
         path: 'list',
-        name: 'list',
+        name: 'dormitorylist',
         component: () => import('@/views/dormitory/list'),
         meta: { title: '宿舍列表', icon: 'table' }
       },{
         path: 'add',
-        name: 'add',
+        name: 'dormitoryadd',
         component: () => import('@/views/dormitory/add'),
         meta: { title: '添加宿舍', icon: 'tree' }
       }
@@ -130,12 +131,12 @@ export const constantRouterMap = [
         children: [
           {
             path: 'list',
-            name: 'list',
+            name: 'specialtylist',
             component: () => import('@/views/education/specialty/list'),
             meta: { title: '系别列表', icon: 'table' }
           },{
             path: 'add',
-            name: 'add',
+            name: 'specialtyadd',
             component: () => import('@/views/education/specialty/add'),
             meta: { title: '添加系别', icon: 'tree' }
           }
@@ -147,12 +148,12 @@ export const constantRouterMap = [
         children: [
           {
             path: 'list',
-            name: 'list',
+            name: 'classlist',
             component: () => import('@/views/education/class/list'),
             meta: { title: '班级列表', icon: 'table' }
           },{
             path: 'add',
-            name: 'add',
+            name: 'classadd',
             component: () => import('@/views/education/class/add'),
             meta: { title: '添加班级', icon: 'tree' }
           }
@@ -169,12 +170,12 @@ export const constantRouterMap = [
     children: [
       {
         path: 'list',
-        name: 'list',
+        name: 'articlelist',
         component: () => import('@/views/article/list'),
         meta: { title: '文章列表', icon: 'table' }
       },{
         path: 'add',
-        name: 'add',
+        name: 'articleadd',
         component: () => import('@/views/article/add'),
         meta: { title: '添加文章', icon: 'form' }
       },

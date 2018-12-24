@@ -15,10 +15,10 @@ import store from './store'
 import '@/icons' // icon
 import '@/permission' // permission control
 
-import api from '@/api'
-Vue.$api = api
-
 Vue.use(ElementUI, { locale })
+
+// import api from '@/api'
+// Vue.prototype.$api = api
 
 Vue.config.productionTip = false
 

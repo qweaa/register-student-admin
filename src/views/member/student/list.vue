@@ -2,16 +2,18 @@
 
 </style>
 <template>
-    <div class="container">
-        <p>学生列表</p>
-        <el-table :data="tableData" border style="width: 100%">
-            <el-table-column prop="date" label="日期" width="180"></el-table-column>
-            <el-table-column prop="name" label="姓名" width="180"> </el-table-column>
-            <el-table-column prop="address" label="地址"> </el-table-column>
-        </el-table>
-    </div>
+    <el-container>
+        <el-main>
+            <el-table :data="tableData" border style="width: 100%">
+                <el-table-column prop="date" label="日期" width="180"></el-table-column>
+                <el-table-column prop="name" label="姓名" width="180"> </el-table-column>
+                <el-table-column prop="address" label="地址"> </el-table-column>
+            </el-table>
+        </el-main>
+    </el-container>
 </template>
 <script>
+import {getStudentList} from '@/api/student'
 export default {
     data(){
         return {
@@ -31,8 +33,24 @@ export default {
                 date: '2016-05-03',
                 name: '王小虎',
                 address: '上海市普陀区金沙江路 1516 弄'
-            }]
+            }],
+
+            currentPage: 1,
+            pageSize: 10,
         }
+    },
+    methods: {
+        getList(){
+            getStudentList({
+                currentPage: this.currentPage,
+                pageSize: this.pageSize,
+            }).then(data=>{
+                console.log("学生列表：", data)
+            })
+        }
+    },
+    created(){
+        this.getList()
     }
 }
 </script>

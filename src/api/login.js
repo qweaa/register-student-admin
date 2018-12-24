@@ -2,10 +2,10 @@ import request from '@/utils/request'
 
 export function login(username, password) {
   return request({
-    url: '/api/index.php/index/Logincontroller/login_admin',
+    url: '/index.php/index/Logincontroller/login_admin',
     method: 'post',
     data: {
-      username,
+      adminId: username,
       password
     }
   })
