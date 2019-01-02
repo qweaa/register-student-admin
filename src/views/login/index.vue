@@ -38,7 +38,7 @@
 
 <script>
 import { isvalidUsername } from '@/utils/validate'
-
+import { setToken } from '@/utils/auth'
 export default {
   name: 'Login',
   data() {
@@ -87,6 +87,9 @@ export default {
       }
     },
     handleLogin() {
+      setToken(this.loginForm.username)
+      this.$router.push({ path: this.redirect || '/' })
+      return
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
