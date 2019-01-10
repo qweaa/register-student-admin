@@ -15,52 +15,26 @@
                 <el-input v-model="form.graduate"></el-input>
             </el-form-item>
             <el-form-item label="身份证号">
-                <el-input v-model="form.IDnumber"></el-input>
+                <el-input type="number" v-model="form.IDnumber"></el-input>
             </el-form-item>
 
             <el-form-item label="系别方向">
-                <el-cascader expand-trigger="hover" :options="options" v-model="selectedOptions2" @change="handleChange" placeholder="请选择" style="width: 100%;"></el-cascader>
-                <!-- <el-input v-model="form.graduate"></el-input> -->
+                <el-cascader expand-trigger="hover" :options="options" v-model="specialty" @change="handleChange" placeholder="请选择" style="width: 100%;"></el-cascader>
             </el-form-item>
-            <!-- <el-form-item label="系别">
-                <el-input v-model="form.dept"></el-input>
-            </el-form-item>
-            <el-form-item label="专业ID">
-                <el-input v-model="form.specialtyId"></el-input>
-            </el-form-item>
-            <el-form-item label="专业名称">
-                <el-input v-model="form.specialtyName"></el-input>
-            </el-form-item>
-            <el-form-item label="班级ID">
-                <el-input v-model="form.classId"></el-input>
-            </el-form-item>
-            <el-form-item label="班级">
-                <el-input v-model="form.className"></el-input>
-            </el-form-item> -->
-            <!-- <el-form-item label="宿舍ID">
-                <el-input v-model="form.dormitoryId"></el-input>
-            </el-form-item> -->
             <el-form-item label="宿舍">
-                <el-input v-model="form.dormitoryName"></el-input>
+                <el-select style="width: 100%;" v-model="form.dormitoryId" placeholder="请选择">
+                    <el-option v-for="item in dormitory" :key="item.ID" :label="item.Name" :value="item.ID"></el-option>
+                </el-select>
             </el-form-item>
-
-            <!-- <el-form-item label="导师ID">
-                <el-input v-model="form.tutorId"></el-input>
-            </el-form-item> -->
             <el-form-item label="导师">
                 <el-select style="width: 100%;" v-model="form.tutorId" placeholder="请选择">
                     <el-option v-for="item in tutor" :key="item.ID" :label="item.Name" :value="item.ID"></el-option>
                 </el-select>
-                <!-- <el-input v-model="form.tutorName"></el-input> -->
             </el-form-item>
-            <!-- <el-form-item label="辅导员ID">
-                <el-input v-model="form.instructorId"></el-input>
-            </el-form-item> -->
             <el-form-item label="辅导员">
                 <el-select style="width: 100%;" v-model="form.instructorId" placeholder="请选择">
                     <el-option v-for="item in instructor" :key="item.ID" :label="item.Name" :value="item.ID"></el-option>
                 </el-select>
-                <!-- <el-input v-model="form.instructorName"></el-input> -->
             </el-form-item>
 
             <el-form-item label="地址">
@@ -70,13 +44,13 @@
                 <el-input v-model="form.father"></el-input>
             </el-form-item>
             <el-form-item label="父亲电话">
-                <el-input v-model="form.fatherPhone"></el-input>
+                <el-input type="number" v-model="form.fatherPhone"></el-input>
             </el-form-item>
             <el-form-item label="母亲">
                 <el-input v-model="form.mother"></el-input>
             </el-form-item>
             <el-form-item label="母亲电话">
-                <el-input v-model="form.motherPhone"></el-input>
+                <el-input type="number" v-model="form.motherPhone"></el-input>
             </el-form-item>
 
             <el-form-item>
@@ -88,7 +62,7 @@
   </el-container>
 </template>
 <script>
-import { getStudentList } from "@/api/student";
+import { addStudent } from "@/api/student";
 export default {
     data() {
         return {
@@ -115,25 +89,44 @@ export default {
                 motherPhone: '',
             },
             
+                // studentName: '',
+                // ticketNumber: '',
+                // IDnumber: '',
+                // specialtyId: '',
+                // specialtyName: '',
+                // dept: '',
+                // dormitoryId: '',
+                // dormitoryName: '',
+                // tutorId: '',
+                // tutorName: '',
+                // instructorId: '',
+                // instructorName: '',
+                // graduate: '',
+                // address: '',
+                // father: '',
+                // fatherPhone: '',
+                // mother: '',
+                // motherPhone: '',
+            
             form: {
-                studentName: '',
-                ticketNumber: '',
-                IDnumber: '',
+                studentName: '测试',
+                ticketNumber: '4401542121564156454',
+                IDnumber: '44015613215645646',
                 specialtyId: '',
                 specialtyName: '',
                 dept: '',
-                dormitoryId: '',
+                dormitoryId: 1,
                 dormitoryName: '',
-                tutorId: '',
+                tutorId: 1,
                 tutorName: '',
-                instructorId: '',
+                instructorId: 1,
                 instructorName: '',
-                graduate: '',
-                address: '',
-                father: '',
-                fatherPhone: '',
-                mother: '',
-                motherPhone: '',
+                graduate: '广州六中',
+                address: '广东广州越秀',
+                father: '李刚',
+                fatherPhone: '137265556565',
+                mother: '李梅',
+                motherPhone: '134564654645',
             },
             options: [{
                 value: 0,
@@ -163,7 +156,7 @@ export default {
                     label: '网络安全'
                 }]
             }],
-            selectedOptions2: [],
+            specialty: [1,0],
 
             tutor: [
                 {
@@ -182,19 +175,86 @@ export default {
                     ID: 2,
                     Name: '李Sir'
                 }
-            ]
+            ],
+            dormitory: [
+                {
+                    ID: 1,
+                    Name: 'R340'
+                },{
+                    ID: 2,
+                    Name: 'R341'
+                }
+            ],
         }
     },
     methods: {
+        getTutorName(id){
+            let result = ''
+            for(let i of this.tutor){
+                if(i.ID === id){
+                    result = i.Name
+                    break
+                }
+            }
+            return result
+        },
+        getInstructorName(id){
+            let result = ''
+            for(let i of this.dormitory){
+                if(i.ID === id){
+                    result = i.Name
+                    break
+                }
+            }
+            return result
+        },
+        getDormitoryName(id){
+            let result = ''
+            for(let i of this.dormitory){
+                if(i.ID === id){
+                    result = i.Name
+                    break
+                }
+            }
+            return result
+        },
         onSubmit() {
-            let dept = this.options[this.selectedOptions2[0]].label
-            let specialtyName = this.options[
-                    this.selectedOptions2[0]
-                ].children[
-                    this.selectedOptions2[1]
-                ].label
-            console.log(dept, specialtyName)
+            
+            let data = JSON.parse(JSON.stringify(this.form))
+            let ignoreKey = ['dept', 'dormitoryName', 'tutorName', 'instructorName', 'specialtyId', 'specialtyName']
 
+            for(let i in data){
+                if(ignoreKey.indexOf(i) === -1 && !data[i]){
+                    this.$message.warning('请完成表单填写');
+                    return
+                }
+            }
+
+            let dept = this.options[this.specialty[0]].label
+            let specialtyName = this.options[
+                    this.specialty[0]
+                ].children[
+                    this.specialty[1]
+                ].label
+            console.log(
+                dept,
+                specialtyName,
+                this.getTutorName(this.form.tutorId),
+                this.getInstructorName(this.form.instructorId)
+            )
+
+            data.instructorName = this.getInstructorName(this.form.instructorId)
+            data.tutorName = this.getTutorName(this.form.instructorId)
+            data.dormitoryName = this.getDormitoryName(this.form.dormitoryId)
+            data.dept = dept
+            data.specialtyId = this.specialty[1]
+            data.specialtyName = specialtyName
+
+            console.log(data)
+
+            addStudent(data).then(res=>{
+                console.log('添加学生：',res)
+            })
             
         },
         handleChange(value) {
