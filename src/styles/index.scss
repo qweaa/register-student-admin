@@ -6,6 +6,8 @@
 @import './color.scss';
 @import './base.scss';
 
+.el-aside, .el-main{overflow: hidden !important;}
+
 body {
   height: 100%;
   -moz-osx-font-smoothing: grayscale;
