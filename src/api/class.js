@@ -7,7 +7,7 @@ export function login(username, password) {
     data: {
       adminId: username,
       password
-    }
+    } 
   })
 }
 
