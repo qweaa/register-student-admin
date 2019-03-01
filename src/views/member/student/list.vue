@@ -4,6 +4,8 @@
 .cell_bd{flex: 1;}
 .cell_ft{min-width: 40px;}
 
+.text-right{text-align: right}
+
 .detail{max-width: 600px; line-height: 24px;}
 </style>
 <template>
@@ -28,33 +30,33 @@
 
                 <el-table-column fixed="right" label="操作" width="160">
                     <template slot-scope="scope">
-                        <el-button type="text" @click="detailVisible = true" size="small">详情</el-button>
-                        <el-button type="text" @click="formVisible = true" size="small">编辑</el-button>
-                        <el-button type="text" @click="del" style="color: #F56C6C;" size="small">删除</el-button>
+                        <el-button type="text" @click="tableDataIndex = scope.$index; detailVisible = true" size="small">详情</el-button>
+                        <el-button type="text" @click="editor(scope.$index)" size="small">编辑</el-button>
+                        <el-button type="text" @click="del(scope.$index, scope.row.studentId)" style="color: #F56C6C;" size="small">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
             <el-dialog title="详细信息" width="600px" :visible.sync="detailVisible">
-                <div class="detail">
+                <div class="detail" v-if="tableData[tableDataIndex]">
                     <div class="cell">
                         <div class="cell_hd">父亲</div>
-                        <div class="cell_ft">李刚</div>
+                        <div class="cell_ft text-right">{{tableData[tableDataIndex].father || '空'}}</div>
                     </div>
                     <div class="cell">
                         <div class="cell_hd">父亲电话</div>
-                        <div class="cell_ft">李刚</div>
+                        <div class="cell_ft text-right">{{tableData[tableDataIndex].fatherPhone || '空'}}</div>
                     </div>
                     <div class="cell">
                         <div class="cell_hd">母亲</div>
-                        <div class="cell_ft">李刚</div>
+                        <div class="cell_ft text-right">{{tableData[tableDataIndex].mother || '空'}}</div>
                     </div>
                     <div class="cell">
                         <div class="cell_hd">母亲电话</div>
-                        <div class="cell_ft">李刚</div>
+                        <div class="cell_ft text-right">{{tableData[tableDataIndex].motherPhone || '空'}}</div>
                     </div>
                     <div class="cell">
                         <div class="cell_hd">地址</div>
-                        <div class="cell_ft">李刚</div>
+                        <div class="cell_ft text-right">{{tableData[tableDataIndex].address || '空'}}</div>
                     </div>
                 </div>
                 <div slot="footer" class="dialog-footer">
@@ -75,62 +77,19 @@
                 </el-form>
                 <div slot="footer" class="dialog-footer">
                     <el-button @click="formVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="formVisible = false">确 定</el-button>
+                    <el-button type="primary" @click="submitUpdate">确 定</el-button>
                 </div>
             </el-dialog>
         </el-main>
     </el-container>
 </template>
 <script>
-import {getStudentList} from '@/api/student'
+import {getStudentList, updateStudent, delStudent} from '@/api/student'
 export default {
     data(){
         return {
-            tableData: [{
-                date: '2016-05-02',
-                ticketNumber: 4611321545651321,
-                graduate: '广州六中',
-                dept: '网络系',
-                specialtyName: '网络安全',
-                dormitoryName: 'R301',
-                tutorName: '张明君',
-                instructorName: '曹璐婷',
-                studentName: '王小虎',
-                address: '上海市普陀区金沙江路 1518 弄'
-            }, {
-                date: '2016-05-04',
-                studentName: '王小虎',
-                ticketNumber: 4611321545651321,
-                graduate: '广州六中',
-                dept: '网络系',
-                specialtyName: '网络安全',
-                dormitoryName: 'R301',
-                tutorName: '张明君',
-                instructorName: '曹璐婷',
-                address: '上海市普陀区金沙江路 1517 弄'
-            }, {
-                date: '2016-05-01',
-                studentName: '王小虎',
-                ticketNumber: 4611321545651321,
-                graduate: '广州六中',
-                dept: '网络系',
-                specialtyName: '网络安全',
-                dormitoryName: 'R301',
-                tutorName: '张明君',
-                instructorName: '曹璐婷',
-                address: '上海市普陀区金沙江路 1519 弄'
-            }, {
-                date: '2016-05-03',
-                studentName: '王小虎',
-                ticketNumber: 4611321545651321,
-                graduate: '广州六中',
-                dept: '网络系',
-                specialtyName: '网络安全',
-                dormitoryName: 'R301',
-                tutorName: '张明君',
-                instructorName: '曹璐婷',
-                address: '上海市普陀区金沙江路 1516 弄'
-            }],
+            tableData: [],
+            tableDataIndex: 0,
 
             currentPage: 1,
             pageSize: 10,
@@ -157,22 +116,52 @@ export default {
             })
         },
         //删除
-        del(){
+        del(index, id){
             this.$confirm('此操作将永久删除该学生信息, 是否继续?', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
+                delStudent(id).then(data=>{
+                    this.tableData.splice(index, 1)
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    });
+                })
+            }).catch();
+        },
+        //修改信息
+        editor(index){
+            this.formVisible = true
+            this.tableDataIndex = index
+            this.form.graduate = this.tableData[index].graduate
+            this.form.fatherPhone = this.tableData[index].fatherPhone
+            this.form.motherPhone = this.tableData[index].motherPhone
+        },
+        //确定跟新
+        submitUpdate(){
+            let form = JSON.parse(JSON.stringify(this.form))
+            for(let i in form){
+                if(form[i] === ''){
+                    this.$message({
+                        type: 'warning',
+                        message: '表单不能为空'
+                    });
+                    return
+                }
+            }
+            form.studentId = this.tableData[this.tableDataIndex].studentId
+            updateStudent(form).then(data=>{
                 this.$message({
                     type: 'success',
-                    message: '删除成功!'
+                    message: '修改成功'
                 });
-            }).catch(() => {
-                this.$message({
-                    type: 'info',
-                    message: '已取消删除'
-                });          
-            });
+                this.tableData[this.tableDataIndex].graduate = form.graduate
+                this.tableData[this.tableDataIndex].fatherPhone = form.fatherPhone
+                this.tableData[this.tableDataIndex].motherPhone = form.motherPhone
+                this.formVisible = false
+            })
         },
     },
     created(){

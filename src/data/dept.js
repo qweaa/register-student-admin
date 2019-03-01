@@ -9,8 +9,11 @@ const data = [
         PID: 1,
     },{
         ID: 3,
-        Name: '网络技术系',
+        Name: '网络系',
         PID: 1,
+    },{
+        ID: 4,
+        Name: '游戏系'
     }
 ]
 

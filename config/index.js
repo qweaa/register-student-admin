@@ -11,7 +11,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://2x2988v208.iok.la:58695', // 设置你调用的接口域名和端口号
+        target: 'http://118.24.61.236', // 设置你调用的接口域名和端口号
         changeOrigin: true,   // 跨域
         pathRewrite: {
          '^/api': ''
@@ -65,7 +65,7 @@ module.exports = {
      * then assetsPublicPath should be set to "/bar/".
      * In most cases please use '/' !!!
      */
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
 
     /**
      * Source Maps

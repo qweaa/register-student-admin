@@ -29,8 +29,8 @@
         </el-button>
       </el-form-item>
       <div class="tips">
-        <span style="margin-right:20px;">username: admin</span>
-        <span> password: admin</span>
+        <span style="margin-right:20px;">username: 144123456</span>
+        <span> password: 123456</span>
       </div>
     </el-form>
   </div>
@@ -87,9 +87,9 @@ export default {
       }
     },
     handleLogin() {
-      setToken(this.loginForm.username)
-      this.$router.push({ path: this.redirect || '/' })
-      return
+      // setToken(this.loginForm.username)
+      // this.$router.push({ path: this.redirect || '/' })
+      // return
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true

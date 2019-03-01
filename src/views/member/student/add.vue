@@ -18,24 +18,37 @@
                 <el-input type="number" v-model="form.IDnumber"></el-input>
             </el-form-item>
 
-            <el-form-item label="系别方向">
-                <el-cascader expand-trigger="hover" :options="options" v-model="specialty" @change="handleChange" placeholder="请选择" style="width: 100%;"></el-cascader>
-            </el-form-item>
-            <el-form-item label="宿舍">
-                <el-select style="width: 100%;" v-model="form.dormitoryId" placeholder="请选择">
-                    <el-option v-for="item in dormitory" :key="item.ID" :label="item.Name" :value="item.ID"></el-option>
+            <el-form-item label="系别">
+                <el-select @change="onDeptChange" style="width: 100%;" v-model="form.dept" placeholder="请选择">
+                    <el-option v-for="item in deptData" :key="item.ID" :label="item.Name" :value="item.Name"></el-option>
                 </el-select>
+            </el-form-item>
+            <el-form-item label="班级">
+                <el-select style="width: 100%;" v-model="form.specialtyId" placeholder="请先选择系别">
+                    <el-option v-for="item in specialtyData" :key="item.specialtyId" :label="item.specialtyName" :value="item.specialtyId"></el-option>
+                </el-select>
+            </el-form-item>
+
+            <!-- <el-form-item label="系别方向">
+                <el-cascader expand-trigger="hover" :options="options" v-model="specialty" @change="handleChange" placeholder="请选择" style="width: 100%;"></el-cascader>
+            </el-form-item> -->
+            <el-form-item label="宿舍">
+                <el-input v-model="form.dormitoryName"></el-input>
+
+                <!-- <el-select style="width: 100%;" v-model="form.dormitoryId" placeholder="请选择">
+                    <el-option v-for="item in dormitory" :key="item.ID" :label="item.Name" :value="item.ID"></el-option>
+                </el-select> -->
             </el-form-item>
             <el-form-item label="导师">
                 <el-select style="width: 100%;" v-model="form.tutorId" placeholder="请选择">
-                    <el-option v-for="item in tutor" :key="item.ID" :label="item.Name" :value="item.ID"></el-option>
+                    <el-option v-for="item in tutor" :key="item.teacherId" :label="item.teacherName" :value="item.teacherId"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="辅导员">
+            <!-- <el-form-item label="辅导员">
                 <el-select style="width: 100%;" v-model="form.instructorId" placeholder="请选择">
                     <el-option v-for="item in instructor" :key="item.ID" :label="item.Name" :value="item.ID"></el-option>
                 </el-select>
-            </el-form-item>
+            </el-form-item> -->
 
             <el-form-item label="地址">
                 <el-input v-model="form.address"></el-input>
@@ -55,23 +68,25 @@
 
             <el-form-item>
                 <el-button type="primary" @click="onSubmit">立即创建</el-button>
-                <el-button>取消</el-button>
+                <el-button @click="resetForm">重置</el-button>
             </el-form-item>
         </el-form>
     </el-main>
   </el-container>
 </template>
 <script>
+import deptData from '@/data/dept'
 import { addStudent } from "@/api/student";
+import { getSpecialtyByDept } from "@/api/specialty";
+import { getTeacherList } from "@/api/teacher";
 export default {
     data() {
         return {
-            formModel: {
+            deptData: deptData,
+            form: {
                 studentName: '',
                 ticketNumber: '',
                 IDnumber: '',
-                classId: '',
-                className: '',
                 specialtyId: '',
                 specialtyName: '',
                 dept: '',
@@ -79,8 +94,8 @@ export default {
                 dormitoryName: '',
                 tutorId: '',
                 tutorName: '',
-                instructorId: '',
-                instructorName: '',
+                // instructorId: '',
+                // instructorName: '',
                 graduate: '',
                 address: '',
                 father: '',
@@ -108,19 +123,19 @@ export default {
                 // mother: '',
                 // motherPhone: '',
             
-            form: {
+            formModel: {
                 studentName: '测试',
                 ticketNumber: '4401542121564156454',
                 IDnumber: '44015613215645646',
                 specialtyId: '',
                 specialtyName: '',
                 dept: '',
-                dormitoryId: 1,
-                dormitoryName: '',
-                tutorId: 1,
+                dormitoryId: '1',
+                dormitoryName: 'R340',
+                tutorId: '1',
                 tutorName: '',
-                instructorId: 1,
-                instructorName: '',
+                // instructorId: '',
+                // instructorName: '',
                 graduate: '广州六中',
                 address: '广东广州越秀',
                 father: '李刚',
@@ -128,45 +143,10 @@ export default {
                 mother: '李梅',
                 motherPhone: '134564654645',
             },
-            options: [{
-                value: 0,
-                label: '外语系',
-                children: [{
-                    value: 0,
-                    label: '翻译',
-                }]
-            }, {
-                value: 1,
-                label: '国贸系',
-                children: [{
-                    value: 0,
-                    label: '电子商务'
-                }]
-            }, {
-                value: 2,
-                label: '网络系',
-                children: [{
-                    value: 0,
-                    label: '网络传播与商务网站设计'
-                }, {
-                    value: 1,
-                    label: '多媒体'
-                }, {
-                    value: 2,
-                    label: '网络安全'
-                }]
-            }],
-            specialty: [1,0],
+            specialtyData: [],
+            specialtyDataIndex: 0,
 
-            tutor: [
-                {
-                    ID: 1,
-                    Name: '覃忠台'
-                },{
-                    ID: 2,
-                    Name: '廖景荣'
-                }
-            ],
+            tutor: [],
             instructor: [
                 {
                     ID: 1,
@@ -176,90 +156,76 @@ export default {
                     Name: '李Sir'
                 }
             ],
-            dormitory: [
-                {
-                    ID: 1,
-                    Name: 'R340'
-                },{
-                    ID: 2,
-                    Name: 'R341'
-                }
-            ],
         }
     },
     methods: {
-        getTutorName(id){
-            let result = ''
-            for(let i of this.tutor){
-                if(i.ID === id){
-                    result = i.Name
-                    break
-                }
-            }
-            return result
+        getTeacher(){
+            getTeacherList({
+                currentPage: 1,
+                pageSize: 10000,
+            }).then(data=>{
+                console.log('教师：',data)
+                this.tutor = data.data
+            })
         },
-        getInstructorName(id){
+
+        getName(id, arrID, arrName, arr){
+            if(!arr || !arr.length) return ''
+
             let result = ''
-            for(let i of this.dormitory){
-                if(i.ID === id){
-                    result = i.Name
-                    break
-                }
-            }
-            return result
-        },
-        getDormitoryName(id){
-            let result = ''
-            for(let i of this.dormitory){
-                if(i.ID === id){
-                    result = i.Name
-                    break
+            for(let i of arr){
+                if(i[arrID] == id){
+                    result = i[arrName]
                 }
             }
             return result
         },
         onSubmit() {
-            
-            let data = JSON.parse(JSON.stringify(this.form))
-            let ignoreKey = ['dept', 'dormitoryName', 'tutorName', 'instructorName', 'specialtyId', 'specialtyName']
+            let form  = JSON.parse(JSON.stringify(this.form))
 
-            for(let i in data){
-                if(ignoreKey.indexOf(i) === -1 && !data[i]){
-                    this.$message.warning('请完成表单填写');
+            let specialtyName = this.getName(form.specialtyId, 'specialtyId', 'specialtyName', this.specialtyData)
+
+            let tutorName = this.getName(form.tutorId, 'teacherId', 'teacherName', this.tutor)
+
+            form.specialtyName = specialtyName
+            form.tutorName = tutorName
+            form.dormitoryId = 1
+
+            for(let i in form){
+                if(form[i] === ''){
+                    this.$message({
+                        type: 'warning',
+                        message: '请填写表单'
+                    });
                     return
                 }
             }
 
-            let dept = this.options[this.specialty[0]].label
-            let specialtyName = this.options[
-                    this.specialty[0]
-                ].children[
-                    this.specialty[1]
-                ].label
-            console.log(
-                dept,
-                specialtyName,
-                this.getTutorName(this.form.tutorId),
-                this.getInstructorName(this.form.instructorId)
-            )
-
-            data.instructorName = this.getInstructorName(this.form.instructorId)
-            data.tutorName = this.getTutorName(this.form.instructorId)
-            data.dormitoryName = this.getDormitoryName(this.form.dormitoryId)
-            data.dept = dept
-            data.specialtyId = this.specialty[1]
-            data.specialtyName = specialtyName
-
-            console.log(data)
-
-            addStudent(data).then(res=>{
-                console.log('添加学生：',res)
+            addStudent(form).then(data=>{
+                this.resetForm()
+                this.$message({
+                    type: 'success',
+                    message: '添加成功'
+                });
+                console.log('添加学生：',data)
             })
             
         },
-        handleChange(value) {
-            console.log(value);
+        onDeptChange(value){
+            this.form.specialtyId = ''
+            this.specialtyData = ''
+            getSpecialtyByDept(value).then(data=>{
+                this.specialtyData = data.data
+            })
         },
+        resetForm(){
+            for(let i in this.form){
+                this.form[i] = ''
+            }
+        },
+    },
+    created(){
+        this.getTeacher()
     }
 }
 </script>
