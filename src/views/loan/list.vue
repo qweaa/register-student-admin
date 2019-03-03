@@ -1,7 +1,7 @@
 <template>
     <el-container>
         <el-main>
-            <el-table :data="tableData" border style="width: 100%">
+            <el-table :data="tableData" size="mini" border style="width: 100%">
                 <el-table-column prop="id" label="ID" width="180"></el-table-column>
                 <el-table-column prop="name" label="贷款人"></el-table-column>
                 <el-table-column prop="loantype" label="贷款类型"></el-table-column>
@@ -11,7 +11,7 @@
                 <el-table-column fixed="right" label="操作">
                     <template slot-scope="scope">
                         <!-- <el-button type="text" @click="del(scope.$index, scope.row.postId)" style="color: #F56C6C;" size="small">删除</el-button> -->
-                        <el-button type="text" @click="gotoComments(scope.$index, scope.row.postId)" size="small">详情</el-button>
+                        <el-button type="text" @click="gotoComments(scope.$index)" size="small">详情</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -55,9 +55,9 @@ export default {
                 })
             }).catch();
         },
-        gotoComments(index, id){
-            window.localStorage.setItem('postData', JSON.stringify(this.tableData[index]))
-            this.$router.push({name: 'articleComments', query: {postid: id}})
+        gotoComments(index){
+            window.localStorage.setItem('loanDetail', JSON.stringify(this.tableData[index]))
+            this.$router.push({name: 'loandetail'})
         },
     },
     created(){

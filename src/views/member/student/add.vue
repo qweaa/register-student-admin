@@ -17,33 +17,37 @@
             <el-form-item label="身份证号">
                 <el-input type="number" v-model="form.IDnumber"></el-input>
             </el-form-item>
+            <el-form-item label="联系电话">
+                <el-input type="number" v-model="form.phone"></el-input>
+            </el-form-item>
 
             <el-form-item label="系别">
-                <el-select @change="onDeptChange" style="width: 100%;" v-model="form.dept" placeholder="请选择">
+                <!-- <el-select @change="onDeptChange" style="width: 100%;" v-model="form.dept" placeholder="请选择"> -->
+                <el-select style="width: 100%;" v-model="form.dept" placeholder="请选择">
                     <el-option v-for="item in deptData" :key="item.ID" :label="item.Name" :value="item.Name"></el-option>
                 </el-select>
             </el-form-item>
-            <el-form-item label="班级">
+            <!-- <el-form-item label="班级">
                 <el-select style="width: 100%;" v-model="form.specialtyId" placeholder="请先选择系别">
                     <el-option v-for="item in specialtyData" :key="item.specialtyId" :label="item.specialtyName" :value="item.specialtyId"></el-option>
                 </el-select>
-            </el-form-item>
+            </el-form-item> -->
 
             <!-- <el-form-item label="系别方向">
                 <el-cascader expand-trigger="hover" :options="options" v-model="specialty" @change="handleChange" placeholder="请选择" style="width: 100%;"></el-cascader>
             </el-form-item> -->
-            <el-form-item label="宿舍">
-                <el-input v-model="form.dormitoryName"></el-input>
+            <!-- <el-form-item label="宿舍">
+                <el-input v-model="form.dormitoryName"></el-input> -->
 
                 <!-- <el-select style="width: 100%;" v-model="form.dormitoryId" placeholder="请选择">
                     <el-option v-for="item in dormitory" :key="item.ID" :label="item.Name" :value="item.ID"></el-option>
                 </el-select> -->
-            </el-form-item>
-            <el-form-item label="导师">
+            <!-- </el-form-item> -->
+            <!-- <el-form-item label="导师">
                 <el-select style="width: 100%;" v-model="form.tutorId" placeholder="请选择">
                     <el-option v-for="item in tutor" :key="item.teacherId" :label="item.teacherName" :value="item.teacherId"></el-option>
                 </el-select>
-            </el-form-item>
+            </el-form-item> -->
             <!-- <el-form-item label="辅导员">
                 <el-select style="width: 100%;" v-model="form.instructorId" placeholder="请选择">
                     <el-option v-for="item in instructor" :key="item.ID" :label="item.Name" :value="item.ID"></el-option>
@@ -87,13 +91,14 @@ export default {
                 studentName: '',
                 ticketNumber: '',
                 IDnumber: '',
-                specialtyId: '',
-                specialtyName: '',
+                phone: '',
+                // specialtyId: '',
+                // specialtyName: '',
                 dept: '',
-                dormitoryId: '',
-                dormitoryName: '',
-                tutorId: '',
-                tutorName: '',
+                // dormitoryId: '',
+                // dormitoryName: '',
+                // tutorId: '',
+                // tutorName: '',
                 // instructorId: '',
                 // instructorName: '',
                 graduate: '',
@@ -127,13 +132,14 @@ export default {
                 studentName: '测试',
                 ticketNumber: '4401542121564156454',
                 IDnumber: '44015613215645646',
-                specialtyId: '',
-                specialtyName: '',
+                phone: '13727887876',
+                // specialtyId: '',
+                // specialtyName: '',
                 dept: '',
-                dormitoryId: '1',
-                dormitoryName: 'R340',
-                tutorId: '1',
-                tutorName: '',
+                // dormitoryId: '1',
+                // dormitoryName: 'R340',
+                // tutorId: '1',
+                // tutorName: '',
                 // instructorId: '',
                 // instructorName: '',
                 graduate: '广州六中',
@@ -182,14 +188,15 @@ export default {
         },
         onSubmit() {
             let form  = JSON.parse(JSON.stringify(this.form))
+            console.log(form)
 
-            let specialtyName = this.getName(form.specialtyId, 'specialtyId', 'specialtyName', this.specialtyData)
+            // let specialtyName = this.getName(form.specialtyId, 'specialtyId', 'specialtyName', this.specialtyData)
 
-            let tutorName = this.getName(form.tutorId, 'teacherId', 'teacherName', this.tutor)
+            // let tutorName = this.getName(form.tutorId, 'teacherId', 'teacherName', this.tutor)
 
-            form.specialtyName = specialtyName
-            form.tutorName = tutorName
-            form.dormitoryId = 1
+            // form.specialtyName = specialtyName
+            // form.tutorName = tutorName
+            // form.dormitoryId = 1
 
             for(let i in form){
                 if(form[i] === ''){
@@ -199,6 +206,38 @@ export default {
                     });
                     return
                 }
+            }
+
+            if(!/^\d{15}|\d{18}$/.test(form.IDnumber)){
+                this.$message({
+                    type: 'warning',
+                    message: '请填写正确的身份证号'
+                });
+                return
+            }
+
+            if(!/^1[3|4|5|7|8]\d{9}$/.test(form.phone)){
+                this.$message({
+                    type: 'warning',
+                    message: '请填写正确的学生联系电话'
+                });
+                return
+            }
+
+            if(!/^1[3|4|5|7|8]\d{9}$/.test(form.fatherPhone)){
+                this.$message({
+                    type: 'warning',
+                    message: '请填写正确的父亲联系电话'
+                });
+                return
+            }
+
+            if(!/^1[3|4|5|7|8]\d{9}$/.test(form.motherPhone)){
+                this.$message({
+                    type: 'warning',
+                    message: '请填写正确的母亲联系电话'
+                });
+                return
             }
 
             addStudent(form).then(data=>{

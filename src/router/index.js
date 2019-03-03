@@ -209,12 +209,14 @@ export const constantRouterMap = [
         name: 'articlelist',
         component: () => import('@/views/article/list'),
         meta: { title: '帖子列表', icon: 'table' }
-      },{
-        path: 'add',
-        name: 'articleadd',
-        component: () => import('@/views/article/add'),
-        meta: { title: '帖子添加', icon: 'form' }
-      },{
+      },
+      // {
+      //   path: 'add',
+      //   name: 'articleadd',
+      //   component: () => import('@/views/article/add'),
+      //   meta: { title: '帖子添加', icon: 'form' }
+      // },
+      {
         path: 'comments',
         name: 'articleComments',
         component: () => import('@/views/article/comments'),
@@ -239,7 +241,8 @@ export const constantRouterMap = [
         path: 'detail',
         name: 'loandetail',
         component: () => import('@/views/loan/detail'),
-        meta: { title: '贷款详情', icon: 'table' }
+        meta: { title: '贷款详情', icon: 'table' },
+        hidden: true,
       },
     ]
   },
