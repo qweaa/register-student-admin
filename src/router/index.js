@@ -46,7 +46,7 @@ export const constantRouterMap = [
       {
         path: 'student',
         name: 'student',
-        component: () => import('@/views/member/student/index'),
+        component: () => import('@/views/member/index'),
         meta: { title: '学生管理', icon: 'table' },
         children: [
           {
@@ -64,7 +64,7 @@ export const constantRouterMap = [
       },{
         path: 'teacher',
         name: 'teacher',
-        component: () => import('@/views/member/teacher/index'),
+        component: () => import('@/views/member/index'),
         meta: { title: '教师管理', icon: 'tree' },
         children: [
           {
@@ -80,24 +80,31 @@ export const constantRouterMap = [
           }
         ]
       },
-      // {
-      //   path: 'admin',
-      //   name: 'admin',
-      //   meta: { title: '管理员', icon: 'tree' },
-      //   children: [
-      //     {
-      //       path: 'list',
-      //       name: 'adminlist',
-      //       component: () => import('@/views/member/admin/list'),
-      //       meta: { title: '管理员列表', icon: 'table' }
-      //     },{
-      //       path: 'add',
-      //       name: 'adminadd',
-      //       component: () => import('@/views/member/admin/add'),
-      //       meta: { title: '添加管理员', icon: 'tree' }
-      //     }
-      //   ]
-      // },
+      {
+        path: 'admin',
+        name: 'admin',
+        meta: { title: '管理员', icon: 'tree' },
+        component: () => import('@/views/member/index'),
+        children: [
+          {
+            path: 'list',
+            name: 'adminlist',
+            component: () => import('@/views/member/admin/list'),
+            meta: { title: '管理员列表', icon: 'table' }
+          },{
+            path: 'add',
+            name: 'adminadd',
+            component: () => import('@/views/member/admin/add'),
+            meta: { title: '添加管理员', icon: 'tree' }
+          },{
+            path: 'detail',
+            name: 'admindetail',
+            component: () => import('@/views/member/admin/detail'),
+            meta: { title: '管理员详情', icon: 'tree' },
+            hidden: true
+          }
+        ]
+      },
     ]
   },
 

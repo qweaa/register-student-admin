@@ -36,7 +36,9 @@ export default {
     methods: {
         getList(dept){
             getLoanList().then(data=>{
-                this.tableData = data.data
+                if(data.data && data.data.length){
+                    this.tableData = data.data
+                }
             })
         },
 

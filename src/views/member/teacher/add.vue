@@ -2,38 +2,34 @@
 
 </style>
 <template>
-  <el-container>
-    <el-main>
-        <el-form style="max-width: 600px; width: 100%;" ref="form" :model="form" label-width="80px">
-            <el-form-item label="系别">
-                <el-select style="width: 100%;" @change="onDeptChange" v-model="form.dept" placeholder="请选择系别">
-                    <el-option v-for="item in deptData" :key="item.ID" :label="item.Name" :value="item.Name"></el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="专业">
-                <el-select style="width: 100%;" v-model="form.specialtyName" placeholder="请选择专业">
-                    <el-option v-for="item in dormitoryData" :key="item.specialtyId" :label="item.specialtyName" :value="item.specialtyName"></el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="教师类型">
-                <el-select style="width: 100%;" v-model="form.type" placeholder="请选择教师类型">
-                    <el-option v-for="item in teacherTypeData" :key="item.ID" :label="item.Name" :value="item.ID"></el-option>
-                </el-select>
-            </el-form-item>
-            <el-form-item label="教师名称">
-                <el-input v-model="form.teacherName"></el-input>
-            </el-form-item>
-            <el-form-item label="教师电话">
-                <el-input type="tel" v-model="form.phone"></el-input>
-            </el-form-item>
+    <el-form style="max-width: 600px; width: 100%;" ref="form" :model="form" label-width="80px">
+        <el-form-item label="系别">
+            <el-select style="width: 100%;" @change="onDeptChange" v-model="form.dept" placeholder="请选择系别">
+                <el-option v-for="item in deptData" :key="item.ID" :label="item.Name" :value="item.Name"></el-option>
+            </el-select>
+        </el-form-item>
+        <el-form-item label="专业">
+            <el-select style="width: 100%;" v-model="form.specialtyName" placeholder="请选择专业">
+                <el-option v-for="item in dormitoryData" :key="item.specialtyId" :label="item.specialtyName" :value="item.specialtyName"></el-option>
+            </el-select>
+        </el-form-item>
+        <el-form-item label="教师类型">
+            <el-select style="width: 100%;" v-model="form.type" placeholder="请选择教师类型">
+                <el-option v-for="item in teacherTypeData" :key="item.ID" :label="item.Name" :value="item.ID"></el-option>
+            </el-select>
+        </el-form-item>
+        <el-form-item label="教师名称">
+            <el-input v-model="form.teacherName"></el-input>
+        </el-form-item>
+        <el-form-item label="教师电话">
+            <el-input type="tel" v-model="form.phone"></el-input>
+        </el-form-item>
 
-            <el-form-item>
-                <el-button type="primary" @click="onSubmit">立即创建</el-button>
-                <el-button>取消</el-button>
-            </el-form-item>
-        </el-form>
-    </el-main>
-  </el-container>
+        <el-form-item>
+            <el-button type="primary" @click="onSubmit">立即创建</el-button>
+            <el-button>取消</el-button>
+        </el-form-item>
+    </el-form>
 </template>
 <script>
 import buildingData from '@/data/building'
