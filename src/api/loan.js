@@ -15,10 +15,10 @@ export function getLoanDetail(id) {
   })
 }
 
-export function AuditingLoan({id, auditopinion}) {
+export function AuditingLoan({id, auditopinion, status}) {
   return request({
     url: '/index.php/index/Studentcontroller/AuditingLoan',
     method: 'post',
-    data: {id, auditopinion}
+    data: {id, auditopinion, status}
   })
 }

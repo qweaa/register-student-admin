@@ -2,8 +2,7 @@
 
 </style>
 <template>
-  <el-container>
-    <el-main>
+    <div>
         <el-form style="max-width: 600px; width: 100%;" ref="form" :model="form" label-width="80px">
             <el-form-item label="系别">
                 <el-select style="width: 100%;" v-model="form.dept" placeholder="请选择系别">
@@ -19,8 +18,7 @@
                 <el-button>取消</el-button>
             </el-form-item>
         </el-form>
-    </el-main>
-  </el-container>
+    </div>
 </template>
 <script>
 import deptData from '@/data/dept'

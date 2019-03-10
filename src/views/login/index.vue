@@ -28,10 +28,10 @@
           Sign in
         </el-button>
       </el-form-item>
-      <div class="tips">
+      <!-- <div class="tips">
         <span style="margin-right:20px;">username: 144123456</span>
         <span> password: 123456</span>
-      </div>
+      </div> -->
     </el-form>
   </div>
 </template>
@@ -58,8 +58,10 @@ export default {
     }
     return {
       loginForm: {
-        username: '144123456',
-        password: '123456'
+        // username: '144123456',
+        // password: '123456',
+        username: '',
+        password: ''
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],

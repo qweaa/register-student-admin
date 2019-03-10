@@ -16,19 +16,19 @@ export function addAdmin({teacherId, password}) {
 }
 
 //为管理员分配角色
-export function AssignRoles({ teacherId, roleId }) {
+export function AssignRoles({ adminId, roleId }) {
     return request({
         url: '/index.php/index/Admincontroller/AssignRoles',
         method: 'post',
-        data: { teacherId, roleId }
+        data: { adminId, roleId }
     })
 }
 
-export function deleteAdmin(teacherId) {
+export function deleteAdmin(adminId) {
     return request({
         url: '/index.php/index/Admincontroller/deleteAdmin',
         method: 'post',
-        data: { teacherId }
+        data: { adminId }
     })
 }
 
@@ -49,37 +49,37 @@ export function getAllPermission() {
 }
 
 //根据teacherId获取该用户的角色
-export function getRoleByTeachId(teacherId) {
+export function getRoleByTeachId(adminId) {
     return request({
         url: '/index.php/index/Admincontroller/getRoleByTeachId',
         method: 'post',
-        params: {teacherId}
+        params: {adminId}
     })
 }
 
 //根据teacherId获取该用户的权限
-export function getPermissionByTeachId(teacherId) {
+export function getPermissionByTeachId(adminId) {
     return request({
         url: '/index.php/index/Admincontroller/getPermissionByTeachId',
         method: 'post',
-        params: {teacherId}
+        params: {adminId}
     })
 }
 
 //为指定的角色增加权限
-export function addPermissionForRole({teacherId, roleId}) {
+export function addPermissionForRole({adminId, roleId}) {
     return request({
         url: '/index.php/index/Admincontroller/addPermissionForRole',
         method: 'post',
-        data: {teacherId, roleId}
+        data: {adminId, roleId}
     })
 }
 //为指定的角色删除权限
-export function delPermissionForRole({teacherId, roleId}) {
+export function delPermissionForRole({adminId, roleId}) {
     return request({
         url: '/index.php/index/Admincontroller/delPermissionForRole',
         method: 'post',
-        data: {teacherId, roleId}
+        data: {adminId, roleId}
     })
 }
 //管理员修改密码

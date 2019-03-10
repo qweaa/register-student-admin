@@ -38,75 +38,137 @@ export const constantRouterMap = [
   },
 
   {
-    path: '/member',
+    path: '/student',
+    name: 'student',
     component: Layout,
-    name: 'member',
-    meta: { title: '人员管理', icon: 'example' },
+    meta: { title: '学生管理', icon: 'user' },
     children: [
       {
-        path: 'student',
-        name: 'student',
-        component: () => import('@/views/member/index'),
-        meta: { title: '学生管理', icon: 'table' },
-        children: [
-          {
-            path: 'list',
-            name: 'studentlist',
-            component: () => import('@/views/member/student/list'),
-            meta: { title: '学生列表', icon: 'table' }
-          },{
-            path: 'add',
-            name: 'studentadd',
-            component: () => import('@/views/member/student/add'),
-            meta: { title: '添加学生', icon: 'tree' }
-          }
-        ]
+        path: 'list',
+        name: 'studentlist',
+        component: () => import('@/views/member/student/list'),
+        meta: { title: '学生列表', icon: 'table' }
       },{
-        path: 'teacher',
-        name: 'teacher',
-        component: () => import('@/views/member/index'),
-        meta: { title: '教师管理', icon: 'tree' },
-        children: [
-          {
-            path: 'list',
-            name: 'teacherlist',
-            component: () => import('@/views/member/teacher/list'),
-            meta: { title: '教师列表', icon: 'table' }
-          },{
-            path: 'add',
-            name: 'teacheradd',
-            component: () => import('@/views/member/teacher/add'),
-            meta: { title: '添加教师', icon: 'tree' }
-          }
-        ]
-      },
+        path: 'add',
+        name: 'studentadd',
+        component: () => import('@/views/member/student/add'),
+        meta: { title: '添加学生', icon: 'tree' }
+      }
+    ]
+  },{
+    path: '/teacher',
+    name: 'teacher',
+    component: Layout,
+    meta: { title: '教师管理', icon: 'user' },
+    children: [
       {
-        path: 'admin',
-        name: 'admin',
-        meta: { title: '管理员', icon: 'tree' },
-        component: () => import('@/views/member/index'),
-        children: [
-          {
-            path: 'list',
-            name: 'adminlist',
-            component: () => import('@/views/member/admin/list'),
-            meta: { title: '管理员列表', icon: 'table' }
-          },{
-            path: 'add',
-            name: 'adminadd',
-            component: () => import('@/views/member/admin/add'),
-            meta: { title: '添加管理员', icon: 'tree' }
-          },{
-            path: 'detail',
-            name: 'admindetail',
-            component: () => import('@/views/member/admin/detail'),
-            meta: { title: '管理员详情', icon: 'tree' },
-            hidden: true
-          }
-        ]
-      },
+        path: 'list',
+        name: 'teacherlist',
+        component: () => import('@/views/member/teacher/list'),
+        meta: { title: '教师列表', icon: 'table' }
+      },{
+        path: 'add',
+        name: 'teacheradd',
+        component: () => import('@/views/member/teacher/add'),
+        meta: { title: '添加教师', icon: 'tree' }
+      }
+    ]
+  },{
+    path: '/admin',
+    name: 'admin',
+    meta: { title: '管理员', icon: 'tree' },
+    component: Layout,
+    children: [
+      {
+        path: 'list',
+        name: 'adminlist',
+        component: () => import('@/views/member/admin/list'),
+        meta: { title: '管理员列表', icon: 'table' }
+      },{
+        path: 'add',
+        name: 'adminadd',
+        component: () => import('@/views/member/admin/add'),
+        meta: { title: '添加管理员', icon: 'tree' },
+      },{
+        path: 'detail',
+        name: 'admindetail',
+        component: () => import('@/views/member/admin/detail'),
+        meta: { title: '管理员详情', icon: 'tree' },
+        hidden: true
+      }
     ]
   },
+
+  // {
+  //   path: '/member',
+  //   component: Layout,
+  //   name: 'member',
+  //   meta: { title: '人员管理', icon: 'example' },
+  //   children: [
+  //     {
+  //       path: 'student',
+  //       name: 'student',
+  //       component: () => import('@/views/member/index'),
+  //       meta: { title: '学生管理', icon: 'table' },
+  //       children: [
+  //         {
+  //           path: 'list',
+  //           name: 'studentlist',
+  //           component: () => import('@/views/member/student/list'),
+  //           meta: { title: '学生列表', icon: 'table' }
+  //         },{
+  //           path: 'add',
+  //           name: 'studentadd',
+  //           component: () => import('@/views/member/student/add'),
+  //           meta: { title: '添加学生', icon: 'tree' }
+  //         }
+  //       ]
+  //     },{
+  //       path: 'teacher',
+  //       name: 'teacher',
+  //       component: () => import('@/views/member/index'),
+  //       meta: { title: '教师管理', icon: 'tree' },
+  //       children: [
+  //         {
+  //           path: 'list',
+  //           name: 'teacherlist',
+  //           component: () => import('@/views/member/teacher/list'),
+  //           meta: { title: '教师列表', icon: 'table' }
+  //         },{
+  //           path: 'add',
+  //           name: 'teacheradd',
+  //           component: () => import('@/views/member/teacher/add'),
+  //           meta: { title: '添加教师', icon: 'tree' }
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       path: 'admin',
+  //       name: 'admin',
+  //       meta: { title: '管理员', icon: 'tree' },
+  //       component: () => import('@/views/member/index'),
+  //       children: [
+  //         {
+  //           path: 'list',
+  //           name: 'adminlist',
+  //           component: () => import('@/views/member/admin/list'),
+  //           meta: { title: '管理员列表', icon: 'table' }
+  //         },{
+  //           path: 'add',
+  //           name: 'adminadd',
+  //           component: () => import('@/views/member/admin/add'),
+  //           meta: { title: '添加管理员', icon: 'tree' },
+  //         },{
+  //           path: 'detail',
+  //           name: 'admindetail',
+  //           component: () => import('@/views/member/admin/detail'),
+  //           meta: { title: '管理员详情', icon: 'tree' },
+  //           hidden: true
+  //         }
+  //       ]
+  //     },
+  //   ]
+  // },
 
   // {
   //   path: '/dormitory',
@@ -152,31 +214,7 @@ export const constantRouterMap = [
       //     }
       //   ]
       // },
-      {
-        path: 'dormitory',
-        name: 'dormitory',
-        component: () => import('@/views/education/index'),
-        meta: { title: '宿舍管理', icon: 'tree' },
-        children: [
-          {
-            path: 'list',
-            name: 'building',
-            component: () => import('@/views/education/dormitory/building'),
-            meta: { title: '宿舍楼列表', icon: 'table' }
-          },{
-            path: 'add',
-            name: 'classadd',
-            component: () => import('@/views/education/dormitory/add'),
-            meta: { title: '添加宿舍', icon: 'tree' }
-          },{
-            path: 'dormitory',
-            name: 'dormitory',
-            hidden: true,
-            component: () => import('@/views/education/dormitory/dormitory'),
-            meta: { title: '查看宿舍', icon: 'tree' }
-          }
-        ]
-      },
+      
       {
         path: 'class',
         name: 'class',
@@ -206,6 +244,32 @@ export const constantRouterMap = [
   },
 
   {
+    path: '/dormitory',
+    name: 'dormitory',
+    component: Layout,
+    meta: { title: '宿舍管理', icon: 'table' },
+    children: [
+      {
+        path: 'list',
+        name: 'dormitorybuilding',
+        component: () => import('@/views/education/dormitory/building'),
+        meta: { title: '宿舍楼列表', icon: 'table' }
+      },{
+        path: 'add',
+        name: 'dormitoryadd',
+        component: () => import('@/views/education/dormitory/add'),
+        meta: { title: '添加宿舍', icon: 'tree' }
+      },{
+        path: 'dormitory',
+        name: 'dormitory',
+        hidden: true,
+        component: () => import('@/views/education/dormitory/dormitory'),
+        meta: { title: '查看宿舍', icon: 'tree' }
+      }
+    ]
+  },
+
+  {
     path: '/article',
     component: Layout,
     name: 'article',
@@ -215,7 +279,7 @@ export const constantRouterMap = [
         path: 'list',
         name: 'articlelist',
         component: () => import('@/views/article/list'),
-        meta: { title: '帖子列表', icon: 'table' }
+        meta: { title: '帖子列表', icon: 'nested' }
       },
       // {
       //   path: 'add',
@@ -242,7 +306,7 @@ export const constantRouterMap = [
         path: 'list',
         name: 'loanlist',
         component: () => import('@/views/loan/list'),
-        meta: { title: '贷款列表', icon: 'table' }
+        meta: { title: '贷款列表', icon: 'example' }
       },
       {
         path: 'detail',

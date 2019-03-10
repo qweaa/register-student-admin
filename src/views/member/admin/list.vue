@@ -12,13 +12,14 @@
     <div>
         <el-table :data="tableData" border style="width: 100%">
             <el-table-column prop="adminId" label="ID"></el-table-column>
+            <el-table-column prop="teacherId" label="教师ID"></el-table-column>
             <el-table-column prop="adminName" label="管理员名字"> </el-table-column>
             
             <el-table-column fixed="right" label="操作" width="160">
                 <template slot-scope="scope">
-                    <el-button type="text" @click="gotoDetail(scope.$index, scope.row.teacherId)" size="small">详情</el-button>
+                    <!-- <el-button type="text" @click="gotoDetail(scope.$index, scope.row.teacherId)" size="small">详情</el-button> -->
                     <!-- <el-button type="text" @click="editor(scope.$index)" size="small">角色</el-button> -->
-                    <el-button type="text" @click="del(scope.$index, scope.row.teacherId)" style="color: #F56C6C;" size="small">删除</el-button>
+                    <el-button type="text" @click="del(scope.$index, scope.row.adminId)" style="color: #F56C6C;" size="small">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -103,7 +104,7 @@ export default {
         },
         //删除
         del(index, id){
-            this.$confirm('此操作将永久删除该管理员信息, 是否继续?', '提示', {
+            this.$confirm('此操作将永久删除该管理员, 是否继续?', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'warning'

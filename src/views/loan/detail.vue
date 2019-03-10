@@ -1,5 +1,4 @@
 <style scoped>
-.box{padding: 20px;}
 .title{line-height: 60px; text-align: center; font-size: 16px; width: 1000px;}
 .mytable{height: 100%; border: 1px solid #ccc; border-collapse:collapse; width: 1000px; font-size: 14px; line-height: 24px;}
 .mytable td{width: 50px; text-align: center;}
@@ -256,14 +255,14 @@
             </tbody>
         </table>
         <div class="submit_div">
-            <el-radio-group v-model="form.loantype">
-                <el-radio label="学费贷款">审核通过</el-radio>
-                <el-radio label="生活费贷款">审核不通过</el-radio>
+            <el-radio-group v-model="form.status">
+                <el-radio label="1">审核通过</el-radio>
+                <el-radio label="0">审核不通过</el-radio>
             </el-radio-group>
         </div>
         <div class="text-center submit_div">
-            <el-button :size="inputSize" type="primary" @click="submit" v-if="!form.auditopinion">提交</el-button>
-            <el-button :size="inputSize" type="primary" disabled v-else>已审核</el-button>
+            <el-button v-if="status === null || status === ''" :size="inputSize" type="primary" @click="submit">提交</el-button>
+            <el-button v-else :size="inputSize" type="primary" disabled>已审核</el-button>
         </div>
         <div style="height: 100px;"></div>
     </div>
@@ -317,7 +316,11 @@ export default {
 
                 auditopinion: '',   //学院意见
 
-            }
+                status: '',         //审核状态0，1
+
+            },
+
+            status: '',
         }
     },
     methods: {
@@ -330,14 +333,24 @@ export default {
                 return
             }
 
+            if(this.form.status === '' || this.form.status === null || this.form.status === undefined){
+                this.$message({
+                    type: 'warning',
+                    message: '请选择审核通过还是不通过'
+                });
+                return
+            }
+
             AuditingLoan({
                 id: this.form.id,
                 auditopinion: this.form.auditopinion,
+                status: this.form.status,
             }).then(data=>{
                 this.$message({
                     type: 'success',
-                    message: '审核成功'
+                    message: '操作成功'
                 });
+                this.status = this.form.status
                 console.log(data)
             })
         }
@@ -365,8 +378,8 @@ export default {
                     })
                 }
             }
-            console.log(loanDetail.economicconditionsJson)
-            this.form = loanDetail
+            this.form = JSON.parse(JSON.stringify(loanDetail))
+            this.status = loanDetail.status
         }
     }
 }
