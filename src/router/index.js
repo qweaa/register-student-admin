@@ -34,6 +34,9 @@ export const constantRouterMap = [
     children: [{
       path: 'dashboard',
       component: () => import('@/views/dashboard/index')
+    },{
+      path: 'adminUpdatePassword',
+      component: () => import('@/views/dashboard/adminUpdatePassword')
     }]
   },
 
