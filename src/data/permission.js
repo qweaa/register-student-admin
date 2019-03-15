@@ -1,24 +1,27 @@
 const data = [
     {
         ID: 1,
-        Name: 'student',
+        Name: 'right',
     },{
         ID: 2,
-        Name: 'teacher',
+        Name: 'student',
     },{
         ID: 3,
-        Name: 'admin',
+        Name: 'teacher',
     },{
         ID: 4,
-        Name: 'class'
+        Name: 'admin',
     },{
         ID: 5,
-        Name: 'dormitory'
+        Name: 'education'
     },{
         ID: 6,
-        Name: 'post'
+        Name: 'dormitory'
     },{
         ID: 7,
+        Name: 'article'
+    },{
+        ID: 8,
         Name: 'loan'
     }
 ]

@@ -17,7 +17,7 @@
             
             <el-table-column fixed="right" label="操作" width="160">
                 <template slot-scope="scope">
-                    <!-- <el-button type="text" @click="gotoDetail(scope.$index, scope.row.teacherId)" size="small">详情</el-button> -->
+                    <el-button type="text" @click="gotoDetail(scope.$index, scope.row.teacherId)" size="small">详情</el-button>
                     <!-- <el-button type="text" @click="editor(scope.$index)" size="small">角色</el-button> -->
                     <el-button type="text" @click="del(scope.$index, scope.row.adminId)" style="color: #F56C6C;" size="small">删除</el-button>
                 </template>

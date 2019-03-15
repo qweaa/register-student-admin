@@ -39,6 +39,41 @@ export const constantRouterMap = [
       component: () => import('@/views/dashboard/adminUpdatePassword')
     }]
   },
+  {
+    path: '/right',
+    name: 'right',
+    component: Layout,
+    meta: { title: '权限管理', icon: 'user' },
+    children: [
+      {
+        path: 'rolelist',
+        name: 'rolelist',
+        component: () => import('@/views/right/rolelist'),
+        meta: { title: '角色列表', icon: 'table' }
+      },{
+        path: 'roledetail',
+        name: 'roledetail',
+        component: () => import('@/views/right/roledetail'),
+        meta: { title: '角色详情', icon: 'table' },
+        hidden: true,
+      },{
+        path: 'worklist',
+        name: 'worklist',
+        component: () => import('@/views/right/worklist'),
+        meta: { title: '权限列表', icon: 'tree' }
+      },{
+        path: 'workadd',
+        name: 'workadd',
+        component: () => import('@/views/right/workadd'),
+        meta: { title: '添加权限', icon: 'tree' }
+      },{
+        path: 'workupdate',
+        name: 'workupdate',
+        component: () => import('@/views/right/workupdate'),
+        meta: { title: '编辑权限', icon: 'tree' }
+      }
+    ]
+  },
 
   {
     path: '/student',

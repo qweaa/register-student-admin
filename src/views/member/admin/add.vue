@@ -2,7 +2,7 @@
 .container{max-width: 1000px;}
 </style>
 <template>
-    <div class="container" size="mini">
+    <div class="container">
         <el-form ref="form" label-width="100px">
             <el-form-item label="选择管理员">
                 <el-select style="width: 300px" v-model="form.teacherId" placeholder="选择管理员">
