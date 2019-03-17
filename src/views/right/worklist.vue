@@ -7,7 +7,7 @@
             
             <el-table-column fixed="right" label="操作">
                 <template slot-scope="scope">
-                    <el-button type="text" @click="del(scope.$index, scope.row.workId)" style="color: #F56C6C;" size="small">删除</el-button>
+                    <!-- <el-button type="text" @click="del(scope.$index, scope.row.workId)" style="color: #F56C6C;" size="small">删除</el-button> -->
                     <el-button type="text" @click="gotoUpdate(scope.$index, scope.row.workId)" size="small">编辑</el-button>
                 </template>
             </el-table-column>

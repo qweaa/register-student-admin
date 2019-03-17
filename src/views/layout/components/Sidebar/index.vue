@@ -25,7 +25,31 @@ export default {
       'sidebar'
     ]),
     routes() {
-      return this.$router.options.routes
+      let roles = this.$store.getters.roles
+      let routess = this.$router.options.routes
+      let result = []
+      if(roles.length){       //是数组
+        for(let j of routess){
+          for(let i of roles){
+            if(!j.name || i.workValue == j.name){
+              result.push(j)
+              break
+            }
+          }
+        }
+      }else{              //是对象
+        for(let i of routess){
+          if(!i.name || i.name == roles.workValue){
+            result.push(i)
+          }
+        }
+      }
+      console.log('roles ', roles)
+      console.log('result ', result)
+      return result
+
+
+      // return this.$router.options.routes
     },
     isCollapse() {
       return !this.sidebar.opened

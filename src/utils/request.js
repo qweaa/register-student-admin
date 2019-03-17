@@ -32,6 +32,16 @@ service.interceptors.response.use(
      */
     const res = response.data
     if (res.code != 200) {
+      
+      if(res.code == 400){
+        Message({
+          message: res.message,
+          type: 'warning',
+          duration: 5 * 1000
+        })
+        return Promise.reject('error')
+      }
+
       Message({
         message: res.message,
         type: 'error',

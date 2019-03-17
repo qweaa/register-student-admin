@@ -51,6 +51,11 @@ export const constantRouterMap = [
         component: () => import('@/views/right/rolelist'),
         meta: { title: '角色列表', icon: 'table' }
       },{
+        path: 'roleadd',
+        name: 'roleadd',
+        component: () => import('@/views/right/roleadd'),
+        meta: { title: '添加角色', icon: 'table' }
+      },{
         path: 'roledetail',
         name: 'roledetail',
         component: () => import('@/views/right/roledetail'),
@@ -65,11 +70,13 @@ export const constantRouterMap = [
         path: 'workadd',
         name: 'workadd',
         component: () => import('@/views/right/workadd'),
+        hidden: true,
         meta: { title: '添加权限', icon: 'tree' }
       },{
         path: 'workupdate',
         name: 'workupdate',
         component: () => import('@/views/right/workupdate'),
+        hidden: true,
         meta: { title: '编辑权限', icon: 'tree' }
       }
     ]
@@ -299,7 +306,7 @@ export const constantRouterMap = [
         meta: { title: '添加宿舍', icon: 'tree' }
       },{
         path: 'dormitory',
-        name: 'dormitory',
+        name: 'dormitorylist',
         hidden: true,
         component: () => import('@/views/education/dormitory/dormitory'),
         meta: { title: '查看宿舍', icon: 'tree' }

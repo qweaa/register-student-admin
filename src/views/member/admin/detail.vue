@@ -18,12 +18,12 @@ export default {
         getAllRoles().then(data=>{
             console.log('所有角色列表：', data)
         })
-        if(this.$route.query.teacherid){
-            this.teacherid = this.$route.query.teacherid
-            getRoleByTeachId(this.teacherid).then(data=>{
+        if(this.$route.query.adminId){
+            this.adminId = this.$route.query.adminId
+            getRoleByTeachId(this.adminId).then(data=>{
                 console.log('角色，', data)
             })
-            getPermissionByTeachId(this.teacherid).then(data=>{
+            getPermissionByTeachId(this.adminId).then(data=>{
                 console.log('权限，', data)
             })
         }

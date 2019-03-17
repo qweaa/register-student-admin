@@ -39,3 +39,21 @@ export function getWorksByRoleId(roleId) {
         data: {roleId}
     })
 }
+
+//为角色添加权限
+export function addPermissionForRole({roleId, workId}) {
+    return request({
+        url: '/index.php/index/Admincontroller/addPermissionForRole',
+        method: 'post',
+        data: {roleId, workId}
+    })
+}
+
+//为角色删除权限
+export function delPermissionForRole({roleId, workId}) {
+    return request({
+        url: '/index.php/index/Admincontroller/delPermissionForRole',
+        method: 'post',
+        data: {roleId, workId}
+    })
+}

@@ -14,6 +14,9 @@
 .td_no_border td{border: 0;}
 
 .input_text_center .el-input__inner{text-align: center;}
+
+.box .el-input.is-disabled .el-input__inner{background-color: white; color: #606266;}
+.box .el-textarea.is-disabled .el-textarea__inner{background-color: white; color: #606266;}
 </style>
 
 <template>
@@ -47,84 +50,84 @@
                 <tr>
                     <td colspan="3">借款人姓名</td>
                     <td colspan="5">
-                        <el-input class="no_border" :size="inputSize" v-model="form.name"></el-input>
+                        <el-input disabled class="no_border" :size="inputSize" v-model="form.name"></el-input>
                     </td>
                     <td colspan="2">性别</td>
                     <td colspan="4">
-                        <el-radio-group v-model="form.sex">
+                        <el-radio-group disabled v-model="form.sex">
                             <el-radio label="男">男</el-radio>
                             <el-radio label="女">女</el-radio>
                         </el-radio-group>
                     </td>
                     <td colspan="2">出生年月</td>
                     <td colspan="4">
-                        <el-date-picker class="no_border" :size="inputSize" v-model="form.birth" type="date"></el-date-picker>
+                        <el-date-picker disabled class="no_border" :size="inputSize" v-model="form.birth" type="date"></el-date-picker>
                     </td>
                 </tr>
                 <tr>
                     <td>学院</td>
                     <td colspan="5">
-                        <el-input class="no_border" :size="inputSize" v-model="form.school"></el-input>
+                        <el-input disabled class="no_border" :size="inputSize" v-model="form.school"></el-input>
                     </td>
                     <td>专业</td>
                     <td colspan="6">
-                        <el-input class="no_border" :size="inputSize" v-model="form.specialty"></el-input>
+                        <el-input disabled class="no_border" :size="inputSize" v-model="form.specialty"></el-input>
                     </td>
                     <td>学制</td>
                     <td colspan="2">
-                        <el-input class="no_border" :size="inputSize" v-model="form.specialty" type="number"></el-input>
+                        <el-input disabled class="no_border" :size="inputSize" v-model="form.years" type="number"></el-input>
                     </td>
                     <td>学号</td>
                     <td colspan="3">
-                        <el-input class="no_border" :size="inputSize" v-model="form.studentId" type="number"></el-input>
+                        <el-input disabled class="no_border" :size="inputSize" v-model="form.studentId" type="number"></el-input>
                     </td>
                 </tr>
                 <!-- 第三行 -->
                 <tr>
                     <td colspan="3">户籍所在地</td>
                     <td colspan="11">
-                        <el-input class="no_border" :size="inputSize" v-model="form.auditopinion"></el-input>
+                        <el-input disabled class="no_border" :size="inputSize" v-model="form.auditopinion"></el-input>
                     </td>
                     <td colspan="3">邮政编码</td>
                     <td colspan="3">
-                        <el-input class="no_border" :size="inputSize" v-model="form.postalcode1" type="number"></el-input>
+                        <el-input disabled class="no_border" :size="inputSize" v-model="form.postalcode1" type="number"></el-input>
                     </td>
                 </tr>
                 <!-- 第四行 -->
                 <tr>
                     <td colspan="3">家庭居住地</td>
                     <td colspan="11">
-                        <el-input class="no_border" :size="inputSize" v-model="form.domicile"></el-input>
+                        <el-input disabled class="no_border" :size="inputSize" v-model="form.domicile"></el-input>
                     </td>
                     <td colspan="3">邮政编码</td>
                     <td colspan="3">
-                        <el-input class="no_border" :size="inputSize" v-model="form.postalcode2" type="number"></el-input>
+                        <el-input disabled class="no_border" :size="inputSize" v-model="form.postalcode2" type="number"></el-input>
                     </td>
                 </tr>
                 <!-- 第五行 -->
                 <tr>
                     <td colspan="3">身份证号码</td>
                     <td colspan="11">
-                        <el-input class="no_border" :size="inputSize" v-model="form.IDNumber" type="number"></el-input>
+                        <el-input disabled class="no_border" :size="inputSize" v-model="form.IDNumber" type="number"></el-input>
                     </td>
                     <td colspan="3">家庭电话</td>
                     <td colspan="3">
-                        <el-input class="no_border" :size="inputSize" v-model="form.homephone" type="number"></el-input>
+                        <el-input disabled class="no_border" :size="inputSize" v-model="form.homephone" type="number"></el-input>
                     </td>
                 </tr>
                 <!-- 第六行 -->
                 <tr>
                     <td colspan="3">家庭人口</td>
                     <td colspan="3">
-                        <el-input class="no_border" :size="inputSize" v-model="form.familypopulation" type="number"></el-input>
+                        <el-input disabled class="no_border" :size="inputSize" v-model="form.familypopulation" type="number"></el-input>
                     </td>
                     <td colspan="3">家庭收入</td>
                     <td colspan="3">
-                        <el-input class="no_border" :size="inputSize" v-model="form.monthlyincome" type="number"></el-input>
+                        <el-input disabled class="no_border" :size="inputSize" v-model="form.monthlyincome" type="number"></el-input>
                     </td>
                     <td colspan="4">家庭人均月收入</td>
                     <td colspan="4">
-                        <el-input class="no_border" :size="inputSize" v-model="form.percapitaincome" type="number"></el-input>
+                        <el-input disabled class="no_border" :size="inputSize" v-model="form.percapitaincome" type="number"></el-input>
                     </td>
                 </tr>
                 <!-- 第七大行 -->
@@ -142,25 +145,25 @@
                 </tr>
                 <tr v-for="(v, i) in form.economicconditionsJson" :key="i" class="input_text_center">
                     <td colspan="2">
-                        <el-input class="no_border" :size="inputSize" v-model="v.appellation"></el-input>
+                        <el-input disabled class="no_border" :size="inputSize" v-model="v.appellation"></el-input>
                     </td>
                     <td colspan="2">
-                        <el-input class="no_border" :size="inputSize" v-model="v.name"></el-input>
+                        <el-input disabled class="no_border" :size="inputSize" v-model="v.name"></el-input>
                     </td>
                     <td colspan="2">
-                        <el-input class="no_border" :size="inputSize" v-model="v.age" type="number"></el-input>
+                        <el-input disabled class="no_border" :size="inputSize" v-model="v.age" type="number"></el-input>
                     </td>
                     <td colspan="3">
-                        <el-input class="no_border" :size="inputSize" v-model="v.IDNumber" type="number"></el-input>
+                        <el-input disabled class="no_border" :size="inputSize" v-model="v.IDNumber" type="number"></el-input>
                     </td>
                     <td colspan="3">
-                        <el-input class="no_border" :size="inputSize" v-model="v.job"></el-input>
+                        <el-input disabled class="no_border" :size="inputSize" v-model="v.job"></el-input>
                     </td>
                     <td colspan="5">
-                        <el-input class="no_border" :size="inputSize" v-model="v.workplace"></el-input>
+                        <el-input disabled class="no_border" :size="inputSize" v-model="v.workplace"></el-input>
                     </td>
                     <td colspan="2">
-                        <el-input class="no_border" :size="inputSize" v-model="v.monthlyIncome" type="number"></el-input>
+                        <el-input disabled class="no_border" :size="inputSize" v-model="v.monthlyIncome" type="number"></el-input>
                     </td>
                 </tr>
                 <!-- 第八行 -->
@@ -169,21 +172,21 @@
                         <div style="padding-left: 15px; padding-right: 15px;">家庭经济困难概况</div>
                     </td>
                     <td colspan="18">
-                        <el-input class="no_border" resize="none" type="textarea" rows="6" v-model="form.difficultsituation"></el-input>
+                        <el-input disabled class="no_border" resize="none" type="textarea" rows="6" v-model="form.difficultsituation"></el-input>
                     </td>
                 </tr>
                 <!-- 第九行 -->
                 <tr>
                     <td colspan="2">高考成绩</td>
                     <td colspan="18">
-                        <el-input class="no_border" :size="inputSize" v-model="form.gaokao" type="number"></el-input>
+                        <el-input disabled class="no_border" :size="inputSize" v-model="form.gaokao" type="number"></el-input>
                     </td>
                 </tr>
                 <!-- 第十行 -->
                 <tr>
                     <td colspan="2">申请贷款类型</td>
                     <td colspan="18" class="text-left" style="padding-left: 15px;">
-                        <el-radio-group v-model="form.loantype">
+                        <el-radio-group disabled v-model="form.loantype">
                             <el-radio label="学费贷款">学费贷款</el-radio>
                             <el-radio label="生活费贷款">生活费贷款</el-radio>
                         </el-radio-group>
@@ -193,21 +196,21 @@
                 <tr>
                     <td colspan="2">申请贷款金额</td>
                     <td colspan="18">
-                        <el-input class="no_border" type="textarea" :size="inputSize" resize="none" v-model="form.loanmoney" placeholder="按现行政策规定，学生通过申请国家助学贷款，每人每学年最高不超过600元贷款数额。"></el-input>
+                        <el-input disabled class="no_border" type="textarea" :size="inputSize" resize="none" v-model="form.loanmoney" placeholder="按现行政策规定，学生通过申请国家助学贷款，每人每学年最高不超过600元贷款数额。"></el-input>
                     </td>
                 </tr>
                 <!-- 第十二行 -->
                 <tr>
                     <td colspan="2">贷款期限</td>
                     <td colspan="18">
-                        <el-input class="no_border" type="textarea" :size="inputSize" resize="none" v-model="form.loandeadline" placeholder="国家助学贷款的期限一般不超过八年。国家助学贷款利率按中国人民银行规定的同期利率执行，不上浮。现行年利率：三至五年（含）5.58%，五年以上：5.76%。"></el-input>
+                        <el-input disabled class="no_border" type="textarea" :size="inputSize" resize="none" v-model="form.loandeadline" placeholder="国家助学贷款的期限一般不超过八年。国家助学贷款利率按中国人民银行规定的同期利率执行，不上浮。现行年利率：三至五年（含）5.58%，五年以上：5.76%。"></el-input>
                     </td>
                 </tr>
                 <!-- 第十三行 loanyear -->
                 <tr>
                     <td colspan="2">申请贷款年度</td>
                     <td colspan="18" class="text-left">
-                        <el-input class="no_border" type="textarea" :size="inputSize" resize="none" v-model="form.loanyear" placeholder="申请贷款年度"></el-input>
+                        <el-input disabled class="no_border" type="textarea" :size="inputSize" resize="none" v-model="form.loanyear" placeholder="申请贷款年度"></el-input>
                         <!-- <span>20</span>
                         <input class="myInput" :size="inputSize" v-model="form.homephone">
                         <span> - 20</span>
@@ -240,7 +243,7 @@
                         <div class="text-left" style="text-indent: 2em;">本人保证以上填写内容真实无误，严格遵守国家，经办银行以及国家助学金贷款的各项规定，承诺正确使用所贷款项并按规定履行还款义务。</div>
                         <div class="text-right">
                             <span>借款申请人：</span>
-                            <input class="myInput" :size="inputSize" style="width: 100px; text-align: center;" v-model="form.name">
+                            <input disabled class="myInput" :size="inputSize" style="width: 100px; text-align: center;" v-model="form.name">
                             <!-- <el-date-picker :size="inputSize" v-model="form.birth" type="date"></el-date-picker> -->
                         </div>
                     </td>

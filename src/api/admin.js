@@ -7,6 +7,14 @@ export function getAdminList() {
     })
 }
 
+export function getAdminInfoById(adminId) {
+    return request({
+        url: '/index.php/index/Admincontroller/getAdminInfoById',
+        method: 'post',
+        data: {adminId}
+    })
+}
+
 export function addAdmin({teacherId, password}) {
     return request({
         url: '/index.php/index/Admincontroller/addAdmin',

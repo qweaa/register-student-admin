@@ -13,41 +13,27 @@
         <el-table :data="tableData" border style="width: 100%">
             <el-table-column prop="adminId" label="ID"></el-table-column>
             <el-table-column prop="teacherId" label="教师ID"></el-table-column>
-            <el-table-column prop="adminName" label="管理员名字"> </el-table-column>
+            <el-table-column prop="adminName" label="管理员名字"></el-table-column>
+            <el-table-column prop="roleName" label="管理员角色"></el-table-column>
             
             <el-table-column fixed="right" label="操作" width="160">
                 <template slot-scope="scope">
-                    <el-button type="text" @click="gotoDetail(scope.$index, scope.row.teacherId)" size="small">详情</el-button>
+                    <!-- <el-button type="text" @click="gotoDetail(scope.$index, scope.row.adminId)" size="small">详情</el-button> -->
+                    <el-button type="text" @click="updateRole(scope.$index, scope.row.adminId)" size="small">修改角色</el-button>
                     <!-- <el-button type="text" @click="editor(scope.$index)" size="small">角色</el-button> -->
                     <el-button type="text" @click="del(scope.$index, scope.row.adminId)" style="color: #F56C6C;" size="small">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
-        <el-dialog title="详细信息" width="600px" :visible.sync="detailVisible">
-            <div class="detail" v-if="tableData[tableDataIndex]">
-                <div class="cell">
-                    <div class="cell_hd">父亲</div>
-                    <div class="cell_ft text-right">{{tableData[tableDataIndex].father || '空'}}</div>
-                </div>
-                <div class="cell">
-                    <div class="cell_hd">父亲电话</div>
-                    <div class="cell_ft text-right">{{tableData[tableDataIndex].fatherPhone || '空'}}</div>
-                </div>
-                <div class="cell">
-                    <div class="cell_hd">母亲</div>
-                    <div class="cell_ft text-right">{{tableData[tableDataIndex].mother || '空'}}</div>
-                </div>
-                <div class="cell">
-                    <div class="cell_hd">母亲电话</div>
-                    <div class="cell_ft text-right">{{tableData[tableDataIndex].motherPhone || '空'}}</div>
-                </div>
-                <div class="cell">
-                    <div class="cell_hd">地址</div>
-                    <div class="cell_ft text-right">{{tableData[tableDataIndex].address || '空'}}</div>
-                </div>
+        <el-dialog title="修改管理员角色" width="600px" :visible.sync="detailVisible">
+            <div>
+                <el-radio-group v-model="selectRole">
+                    <el-radio v-for="(v, i) in allRolesList" :key="i" :label="v.roleId">{{v.roleName}}</el-radio>
+                </el-radio-group>
             </div>
             <div slot="footer" class="dialog-footer">
-                <el-button type="danger" size="mini" @click="detailVisible = false">关闭</el-button>
+                <el-button size="mini" @click="detailVisible = false">取消</el-button>
+                <el-button type="primary" size="mini" @click="submitUpdateRole">保存</el-button>
             </div>
         </el-dialog>
         <el-dialog title="修改基本信息" :visible.sync="formVisible">
@@ -70,7 +56,7 @@
     </div>
 </template>
 <script>
-import {getAdminList, deleteAdmin} from '@/api/admin'
+import {getAdminList, deleteAdmin, getAllRoles, AssignRoles} from '@/api/admin'
 export default {
     data(){
         return {
@@ -88,19 +74,65 @@ export default {
                 graduate: '',
                 fatherPhone: '',
                 motherPhone: '',
-            }
+            },
+
+            allRolesList: [],
+            selectRole: '',
         }
     },
     methods: {
         getList(){
             getAdminList().then(data=>{
                 console.log("学生列表：", data)
-                this.tableData = data.data
+                let r = []
+                for(let i of data.data){
+                    if(!i[0].roleId) i[0].roleId = ''
+                    if(!i[0].roleName) i[0].roleName = ''
+                    r.push(i[0])
+                }
+                this.tableData = r
             })
         },
         //查看角色详情
         gotoDetail(index, id){
-            this.$router.push({name: 'admindetail', query: {teacherid: id}})
+            this.$router.push({name: 'admindetail', query: {adminId: id}})
+        },
+        //修改角色
+        updateRole(index, id){
+            if(this.allRolesList && this.allRolesList.length){
+                this.tableDataIndex = index
+                this.selectRole = this.tableData[index].roleId
+                this.detailVisible = true
+            }else{
+                getAllRoles().then(data=>{
+                    this.allRolesList = data.data
+
+                    this.tableDataIndex = index
+                    this.selectRole = this.tableData[index].roleId
+                    this.detailVisible = true
+                })
+            }
+        },
+        //确认修改角色
+        submitUpdateRole(){
+            AssignRoles({
+                adminId: this.tableData[this.tableDataIndex].adminId,
+                roleId: this.selectRole
+            }).then(data=>{
+                this.$message({
+                    type: 'success',
+                    message: '修改成功'
+                })
+                this.tableData[this.tableDataIndex].roleId = this.selectRole
+                for(let i of this.allRolesList){
+                    if(i.roleId == this.selectRole) {
+                        this.tableData[this.tableDataIndex].roleName = i.roleName
+                        break
+                    }
+                }
+                this.detailVisible = false
+
+            })
         },
         //删除
         del(index, id){
